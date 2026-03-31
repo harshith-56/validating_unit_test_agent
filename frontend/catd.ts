@@ -1,6 +1,5 @@
-//function
 export function validateOrder(order: any) {
-  if (!order.items || order.items.length === 0) {
+  if (!order?.items || order.items.length === 0) {
     throw new Error("Empty order");
   }
 
@@ -27,7 +26,7 @@ export function processOrder(order: any, db: any, gateway: any) {
   const total = subtotal + tax;
 
   const payment = gateway.charge(total);
-  if (payment.status !== "success") {
+  if (!payment || payment.status !== "success") {
     throw new Error("Payment failed");
   }
 
@@ -37,5 +36,3 @@ export function processOrder(order: any, db: any, gateway: any) {
     paymentId: payment.id,
   });
 }
-
-

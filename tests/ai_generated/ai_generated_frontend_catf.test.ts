@@ -1,4 +1,4 @@
-import LoginForm from '../../frontend/catf'
+import {LoginForm} from '../../frontend/catf.ts'
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 

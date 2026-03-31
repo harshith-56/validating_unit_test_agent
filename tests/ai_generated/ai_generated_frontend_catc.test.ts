@@ -1,7 +1,7 @@
-import * as catc from '../../frontend/catc'
-import { createSession, sessions } from '../../frontend/catc'
-import { isFeatureEnabled } from '../../frontend/catc'
-import { isRateLimited } from '../../frontend/catc'
+import * as catc from '../../frontend/catc.ts'
+import { createSession, sessions } from '../../frontend/catc.ts'
+import { isFeatureEnabled } from '../../frontend/catc.ts'
+import { isRateLimited } from '../../frontend/catc.ts'
 
 // AI_TEST_AGENT_START function=createSession
 describe('createSession', () => {

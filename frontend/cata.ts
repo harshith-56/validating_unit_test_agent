@@ -1,4 +1,3 @@
-// function
 export function calculateFinalPrice(
   price: number,
   taxRate: number,
@@ -14,10 +13,8 @@ export function calculateFinalPrice(
   return Math.round(final * 100) / 100;
 }
 
-
-// function 
 export function passwordStrength(password: string): string {
-  if (password.length < 8) return "weak";
+  if (!password || password.length < 8) return "weak";
 
   let score = 0;
   if (/[A-Z]/.test(password)) score++;
@@ -28,16 +25,13 @@ export function passwordStrength(password: string): string {
   return score <= 2 ? "medium" : "strong";
 }
 
-
-
-//function
-
 export function normalizeUserPayload(payload: any) {
   return {
-    id: Number(payload.id),
-    name: payload.name.trim().replace(/\b\w/g, (c: string) => c.toUpperCase()),
-    email: payload.email.toLowerCase(),
-    isActive: payload.isActive ?? true,
+    id: Number(payload?.id),
+    name: payload?.name
+      ? payload.name.trim().replace(/\b\w/g, (c: string) => c.toUpperCase())
+      : "",
+    email: payload?.email ? payload.email.toLowerCase() : "",
+    isActive: payload?.isActive ?? true,
   };
 }
-

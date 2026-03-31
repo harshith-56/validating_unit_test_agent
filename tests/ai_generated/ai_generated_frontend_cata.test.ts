@@ -1,6 +1,6 @@
-import calculateFinalPrice from '../../frontend/cata'
-import normalizeUserPayload from '../../frontend/cata'
-import passwordStrength from '../../frontend/cata'
+import {calculateFinalPrice} from '../../frontend/cata.ts'
+import {normalizeUserPayload} from '../../frontend/cata.ts'
+import {passwordStrength} from '../../frontend/cata.ts'
 
 // AI_TEST_AGENT_START function=calculateFinalPrice
 describe('calculateFinalPrice', () => {

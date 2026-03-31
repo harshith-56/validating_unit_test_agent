@@ -1,7 +1,7 @@
-import createUser from '../../frontend/catb'
-import fetchActiveUsers from '../../frontend/catb'
-import processOrder from '../../frontend/catb'
-import processPayment from '../../frontend/catb'
+import {createUser} from '../../frontend/catb.ts'
+import {fetchActiveUsers} from '../../frontend/catb.ts'
+import {processOrder} from '../../frontend/catb.ts'
+import {processPayment} from '../../frontend/catb.ts'
 
 // AI_TEST_AGENT_START function=createUser
 describe('createUser', () => {

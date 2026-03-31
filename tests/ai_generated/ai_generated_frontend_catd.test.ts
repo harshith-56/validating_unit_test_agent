@@ -1,4 +1,4 @@
-import validateOrder from '../../frontend/catd'
+import {validateOrder} from '../../frontend/catd.ts'
 
 // AI_TEST_AGENT_START function=validateOrder
 describe('validateOrder', () => {

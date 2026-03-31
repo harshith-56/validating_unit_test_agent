@@ -1,4 +1,4 @@
-import fetchWithRetry from '../../frontend/cate'
+import {fetchWithRetry} from '../../frontend/cate.ts'
 
 // AI_TEST_AGENT_START function=fetchWithRetry
 describe('fetchWithRetry', () => {

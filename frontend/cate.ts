@@ -1,4 +1,3 @@
-//function
 export async function fetchWithRetry(client: any, url: string, retries = 2) {
   let lastError: any;
 
@@ -25,7 +24,7 @@ export async function processUsers(client: any, db: any) {
   const saved: any[] = [];
 
   for (const u of users) {
-    if (!u.email) continue;
+    if (!u?.email) continue;
 
     const record = await db.save(u);
     saved.push(record);

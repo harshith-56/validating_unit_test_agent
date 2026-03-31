@@ -1,6 +1,4 @@
-
-//function
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export function LoginForm({ onSubmit }: { onSubmit: any }) {
   const [email, setEmail] = useState("");
@@ -29,10 +27,6 @@ export function LoginForm({ onSubmit }: { onSubmit: any }) {
   );
 }
 
-
-//function
-import React, { useEffect, useState } from "react";
-
 export function UserList({ api }: { api: any }) {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -54,5 +48,3 @@ export function UserList({ api }: { api: any }) {
     </ul>
   );
 }
-
-
