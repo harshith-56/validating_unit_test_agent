@@ -1,0 +1,269 @@
+{
+  "backend/catb.py::create_user": {
+    "function_name": "create_user",
+    "language": "python",
+    "source_file": "backend/catb.py",
+    "target_file": "test_ai_generated_backend_catb.py",
+    "test_id": "create_user",
+    "test_names": [
+      "test_create_user_email_none_raises_type_error",
+      "test_create_user_existing_user_raises_value_error",
+      "test_create_user_missing_email_key_raises_key_error",
+      "test_create_user_missing_password_key_raises_key_error",
+      "test_create_user_password_exactly_8_characters_success",
+      "test_create_user_password_none_raises_type_error",
+      "test_create_user_success",
+      "test_create_user_weak_password_raises_value_error"
+    ]
+  },
+  "backend/catb.py::process_payment": {
+    "function_name": "process_payment",
+    "language": "python",
+    "source_file": "backend/catb.py",
+    "target_file": "test_ai_generated_backend_catb.py",
+    "test_id": "process_payment",
+    "test_names": [
+      "test_process_payment_charge_response_missing_status_key_raises_runtime_error",
+      "test_process_payment_charge_response_missing_transaction_id_key_raises_key_error",
+      "test_process_payment_charge_returns_unexpected_status_raises_runtime_error",
+      "test_process_payment_failed_charge_raises_runtime_error",
+      "test_process_payment_negative_amount_raises_value_error",
+      "test_process_payment_successful_charge",
+      "test_process_payment_zero_amount_raises_value_error"
+    ]
+  },
+  "backend/catc.py::is_rate_limited": {
+    "function_name": "is_rate_limited",
+    "language": "python",
+    "source_file": "backend/catc.py",
+    "target_file": "test_ai_generated_backend_catc.py",
+    "test_id": "is_rate_limited",
+    "test_names": [
+      "test_is_rate_limited_above_limit_returns_true_and_does_not_increment",
+      "test_is_rate_limited_at_limit_returns_true_and_does_not_increment",
+      "test_is_rate_limited_below_limit_increments_and_returns_false",
+      "test_is_rate_limited_new_user_starts_count_and_returns_false",
+      "test_is_rate_limited_with_empty_user_id_and_zero_limit_returns_true",
+      "test_is_rate_limited_with_negative_limit_always_returns_true",
+      "test_is_rate_limited_with_non_string_user_id_raises_type_error",
+      "test_is_rate_limited_with_none_user_id_raises_type_error"
+    ]
+  },
+  "frontend/cata.ts::calculateFinalPrice": {
+    "function_name": "calculateFinalPrice",
+    "language": "typescript",
+    "source_file": "frontend/cata.ts",
+    "target_file": "ai_generated_frontend_cata.test.ts",
+    "test_id": "calculateFinalPrice",
+    "test_names": [
+      "it_calculates_final_price_correctly_with_valid_inputs",
+      "it_returns_price_unchanged_when_taxRate_and_discount_are_zero",
+      "it_returns_price_with_only_discount_applied_when_taxRate_is_zero",
+      "it_returns_price_with_only_tax_applied_when_discount_is_zero",
+      "it_throws_error_if_discount_is_greater_than_1",
+      "it_throws_error_if_discount_is_negative",
+      "it_throws_error_if_price_is_negative",
+      "it_throws_error_if_taxRate_is_greater_than_1",
+      "it_throws_error_if_taxRate_is_negative"
+    ]
+  },
+  "frontend/cata.ts::normalizeUserPayload": {
+    "function_name": "normalizeUserPayload",
+    "language": "typescript",
+    "source_file": "frontend/cata.ts",
+    "target_file": "ai_generated_frontend_cata.test.ts",
+    "test_id": "normalizeUserPayload",
+    "test_names": [
+      "it_should_default_isActive_to_true_if_missing",
+      "it_should_handle_empty_string_name_and_email_correctly",
+      "it_should_handle_id_as_a_number_and_convert_correctly",
+      "it_should_handle_isActive_explicitly_set_to_null_and_default_to_true",
+      "it_should_normalize_a_valid_payload_with_all_fields_provided",
+      "it_should_throw_if_email_is_not_a_string_and_toLowerCase_is_not_callable",
+      "it_should_throw_if_id_cannot_be_converted_to_number",
+      "it_should_throw_if_name_is_not_a_string_and_trim_is_not_callable"
+    ]
+  },
+  "frontend/cata.ts::passwordStrength": {
+    "function_name": "passwordStrength",
+    "language": "typescript",
+    "source_file": "frontend/cata.ts",
+    "target_file": "ai_generated_frontend_cata.test.ts",
+    "test_id": "passwordStrength",
+    "test_names": [
+      "it_handles_password_with_exactly_8_characters_at_boundary",
+      "it_returns",
+      "it_throws_or_returns_something_for_non_string_inputs_adversarial"
+    ]
+  },
+  "frontend/catb.ts::createUser": {
+    "function_name": "createUser",
+    "language": "typescript",
+    "source_file": "frontend/catb.ts",
+    "target_file": "ai_generated_frontend_catb.test.ts",
+    "test_id": "createUser",
+    "test_names": [
+      "it_inserts_user_and_returns_result_when_payload_is_valid_and_user_does_not_exist",
+      "it_throws",
+      "it_throws_when_db_findUserByEmail_throws_an_error",
+      "it_throws_when_db_insertUser_throws_an_error",
+      "it_throws_when_payload_email_is_null",
+      "it_throws_when_payload_is_null",
+      "it_throws_when_payload_password_is_empty_string",
+      "it_throws_when_payload_password_is_undefined"
+    ]
+  },
+  "frontend/catb.ts::fetchActiveUsers": {
+    "function_name": "fetchActiveUsers",
+    "language": "typescript",
+    "source_file": "frontend/catb.ts",
+    "target_file": "ai_generated_frontend_catb.test.ts",
+    "test_id": "fetchActiveUsers",
+    "test_names": [
+      "it_filters_out_users_without_email_or_inactive_users",
+      "it_handles_users_with_non_string_email_values_gracefully",
+      "it_retries_exact_number_of_times_specified",
+      "it_retries_on_failure_and_eventually_succeeds",
+      "it_returns_empty_array_if_no_users_returned",
+      "it_returns_filtered_active_users_with_email",
+      "it_throws_error_after_all_retries_fail",
+      "it_throws_if_client_get_returns_non_array_data",
+      "it_works_with_retries_set_to_zero"
+    ]
+  },
+  "frontend/catb.ts::processOrder": {
+    "function_name": "processOrder",
+    "language": "typescript",
+    "source_file": "frontend/catb.ts",
+    "target_file": "ai_generated_frontend_catb.test.ts",
+    "test_id": "processOrder",
+    "test_names": [
+      "it_calculates_total_correctly_for_multiple_items_with_sufficient_stock",
+      "it_processes_single_item_order_correctly",
+      "it_returns_total_0_for_order_with_no_items",
+      "it_rounds_total_to_two_decimal_places_correctly",
+      "it_throws_error_if_inventory_or_pricing_is_null",
+      "it_throws_error_if_item_quantity_is_zero_or_negative",
+      "it_throws_error_if_order_is_null",
+      "it_throws_error_if_order_items_is_missing",
+      "it_throws_error_when_any_item_is_out_of_stock"
+    ]
+  },
+  "frontend/catb.ts::processPayment": {
+    "function_name": "processPayment",
+    "language": "typescript",
+    "source_file": "frontend/catb.ts",
+    "target_file": "ai_generated_frontend_catb.test.ts",
+    "test_id": "processPayment",
+    "test_names": [
+      "it_returns_transactionId_if_gateway_charge_returns_success_status",
+      "it_throws_error_if_amount_is_Infinity",
+      "it_throws_error_if_amount_is_NaN",
+      "it_throws_error_if_amount_is_a_very_large_positive_number_and_gateway_fails",
+      "it_throws_error_if_amount_is_a_very_small_positive_number_and_gateway_succeeds",
+      "it_throws_error_if_amount_is_negative",
+      "it_throws_error_if_amount_is_zero",
+      "it_throws_error_if_gateway_charge_returns_failure_status",
+      "it_throws_error_if_gateway_charge_returns_success_status_but_no_transactionId"
+    ]
+  },
+  "frontend/catc.ts::isFeatureEnabled": {
+    "function_name": "isFeatureEnabled",
+    "language": "typescript",
+    "source_file": "frontend/catc.ts",
+    "target_file": "ai_generated_frontend_catc.test.ts",
+    "test_id": "isFeatureEnabled",
+    "test_names": [
+      "it_handles_non_string_input_by_coercing_to_string_and_returning_false",
+      "it_returns_false_when_called_with_a_flag_not_present_in_featureFlags_object",
+      "it_returns_false_when_called_with_a_numeric_string_flag",
+      "it_returns_false_when_called_with_an_empty_string_as_flag",
+      "it_returns_false_when_the_feature_flag_is_an_empty_string",
+      "it_returns_false_when_the_feature_flag_is_null",
+      "it_returns_false_when_the_feature_flag_is_set_to_false",
+      "it_returns_false_when_the_feature_flag_is_undefined",
+      "it_returns_true_when_the_feature_flag_is_set_to_true"
+    ]
+  },
+  "frontend/catc.ts::isRateLimited": {
+    "function_name": "isRateLimited",
+    "language": "typescript",
+    "source_file": "frontend/catc.ts",
+    "target_file": "ai_generated_frontend_catc.test.ts",
+    "test_id": "isRateLimited",
+    "test_names": [
+      "it_handles_empty_string_userId_correctly",
+      "it_handles_negative_limit_by_always_returning_true",
+      "it_handles_non_string_userId_by_coercing_to_string_key",
+      "it_handles_userId_as_null_by_coercing_to_string",
+      "it_handles_zero_limit_by_always_returning_true",
+      "it_initializes_count_to_1_and_returns_false_when_user_not_in_rateLimit",
+      "it_returns_false_and_increments_count_when_user_count_is_below_limit",
+      "it_returns_true_when_user_count_equals_limit",
+      "it_returns_true_when_user_count_is_above_limit"
+    ]
+  },
+  "frontend/catd.ts::processOrder": {
+    "function_name": "processOrder",
+    "language": "typescript",
+    "source_file": "frontend/catd.ts",
+    "target_file": "ai_generated_frontend_catd.test.ts",
+    "test_id": "processOrder",
+    "test_names": [
+      "it_handles_single_item_order_correctly",
+      "it_processes_a_valid_order_successfully",
+      "it_throws_error_when_an_item_has_zero_quantity",
+      "it_throws_error_when_item_quantity_is_negative",
+      "it_throws_error_when_items_field_is_missing",
+      "it_throws_error_when_order_has_empty_items_array",
+      "it_throws_error_when_order_is_null",
+      "it_throws_error_when_payment_status_is_not_success"
+    ]
+  },
+  "frontend/catd.ts::validateOrder": {
+    "function_name": "validateOrder",
+    "language": "typescript",
+    "source_file": "frontend/catd.ts",
+    "target_file": "ai_generated_frontend_catd.test.ts",
+    "test_id": "validateOrder",
+    "test_names": [
+      "it_does_not_throw_error_for_valid_order_with_multiple_items_all_having_positive_quantities",
+      "it_does_not_throw_error_for_valid_order_with_one_item_with_positive_quantity",
+      "it_throws"
+    ]
+  },
+  "frontend/cate.ts::fetchWithRetry": {
+    "function_name": "fetchWithRetry",
+    "language": "typescript",
+    "source_file": "frontend/cate.ts",
+    "target_file": "ai_generated_frontend_cate.test.ts",
+    "test_id": "fetchWithRetry",
+    "test_names": [
+      "it_handles_zero_retries_and_returns_data_if_first_call_succeeds",
+      "it_handles_zero_retries_and_throws_error_if_first_call_fails",
+      "it_retries_and_returns_data_when_client_get_fails_once_then_succeeds_with_status_200",
+      "it_returns_data_when_client_get_resolves_with_status_200_on_first_try",
+      "it_throws_error_after_all_retries_fail_with_client_get_throwing_errors",
+      "it_throws_error_after_all_retries_when_client_get_returns_non_200_status",
+      "it_throws_error_when_url_is_empty_string_and_client_get_rejects",
+      "it_throws_error_when_url_is_null_and_client_get_rejects",
+      "it_throws_error_with_correct_message_when_lastError_is_a_string_instead_of_Error_object"
+    ]
+  },
+  "frontend/catf.tsx::LoginForm": {
+    "function_name": "LoginForm",
+    "language": "typescript",
+    "source_file": "frontend/catf.tsx",
+    "target_file": "ai_generated_frontend_catf.test.ts",
+    "test_id": "LoginForm",
+    "test_names": [
+      "it_calls_onSubmit_with_email_when_email_is_valid",
+      "it_clears_error_message_after_submitting_valid_email_following_invalid_email",
+      "it_does_not_call_onSubmit_if_email_is_whitespace_only",
+      "it_handles_email_with",
+      "it_handles_email_with_multiple",
+      "it_handles_empty_string_email_input_and_shows_error",
+      "it_shows_error_message_when_email_does_not_contain"
+    ]
+  }
+}
