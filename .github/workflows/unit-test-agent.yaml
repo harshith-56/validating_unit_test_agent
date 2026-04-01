@@ -48,7 +48,7 @@ jobs:
 
       # 7. Run AI Test Agent (NEW VERSION)
       - name: Run AI Test Agent
-        uses: harshith-56/UNIT-TEST-AGENT@v30
+        uses: harshith-56/UNIT-TEST-AGENT@v35
         with:
           llm_api_url: ${{ secrets.LLM_API_URL }}
           llm_api_key: ${{ secrets.LLM_API_KEY }}
