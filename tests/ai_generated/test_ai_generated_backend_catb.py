@@ -1,0 +1,183 @@
+from backend.catb import create_user
+from backend.catb import fetch_active_users
+from backend.catb import process_payment
+from unittest.mock import MagicMock
+import pytest
+
+# AI_TEST_AGENT_START function=create_user
+def test_create_user_success():
+    payload = {"email": "test@example.com", "name": "Test User", "password": "strongpass"}
+    db = MagicMock()
+    db.find_user_by_email.return_value = None
+    db.insert_user.return_value = {"email": "test@example.com", "name": "Test User"}
+
+    result = create_user(payload, db)
+
+    db.find_user_by_email.assert_called_once_with("test@example.com")
+    db.insert_user.assert_called_once_with({"email": "test@example.com", "name": "Test User"})
+    assert result == {"email": "test@example.com", "name": "Test User"}
+
+def test_create_user_existing_user_raises_value_error():
+    payload = {"email": "existing@example.com", "name": "Existing User", "password": "strongpass"}
+    db = MagicMock()
+    db.find_user_by_email.return_value = {"email": "existing@example.com", "name": "Existing User"}
+
+    with pytest.raises(ValueError) as excinfo:
+        create_user(payload, db)
+    assert str(excinfo.value) == "User already exists"
+    db.find_user_by_email.assert_called_once_with("existing@example.com")
+    db.insert_user.assert_not_called()
+
+def test_create_user_weak_password_raises_value_error():
+    payload = {"email": "new@example.com", "name": "New User", "password": "short"}
+    db = MagicMock()
+    db.find_user_by_email.return_value = None
+
+    with pytest.raises(ValueError) as excinfo:
+        create_user(payload, db)
+    assert str(excinfo.value) == "Weak password"
+    db.find_user_by_email.assert_called_once_with("new@example.com")
+    db.insert_user.assert_not_called()
+
+def test_create_user_password_exactly_8_characters_success():
+    payload = {"email": "edge@example.com", "name": "Edge Case", "password": "12345678"}
+    db = MagicMock()
+    db.find_user_by_email.return_value = None
+    db.insert_user.return_value = {"email": "edge@example.com", "name": "Edge Case"}
+
+    result = create_user(payload, db)
+
+    db.find_user_by_email.assert_called_once_with("edge@example.com")
+    db.insert_user.assert_called_once_with({"email": "edge@example.com", "name": "Edge Case"})
+    assert result == {"email": "edge@example.com", "name": "Edge Case"}
+
+def test_create_user_missing_email_key_raises_key_error():
+    payload = {"name": "No Email", "password": "strongpass"}
+    db = MagicMock()
+
+    with pytest.raises(KeyError):
+        create_user(payload, db)
+    db.find_user_by_email.assert_not_called()
+    db.insert_user.assert_not_called()
+
+def test_create_user_missing_password_key_raises_key_error():
+    payload = {"email": "nopass@example.com", "name": "No Password"}
+    db = MagicMock()
+    db.find_user_by_email.return_value = None
+
+    with pytest.raises(KeyError):
+        create_user(payload, db)
+    db.find_user_by_email.assert_called_once_with("nopass@example.com")
+    db.insert_user.assert_not_called()
+
+def test_create_user_password_none_raises_type_error():
+    payload = {"email": "nonepass@example.com", "name": "None Password", "password": None}
+    db = MagicMock()
+    db.find_user_by_email.return_value = None
+
+    with pytest.raises(TypeError):
+        create_user(payload, db)
+    db.find_user_by_email.assert_called_once_with("nonepass@example.com")
+    db.insert_user.assert_not_called()
+
+def test_create_user_email_none_raises_type_error():
+    payload = {"email": None, "name": "None Email", "password": "strongpass"}
+    db = MagicMock()
+    db.find_user_by_email.return_value = None
+
+    with pytest.raises(TypeError):
+        create_user(payload, db)
+    db.find_user_by_email.assert_called_once_with(None)
+    db.insert_user.assert_not_called()
+# AI_TEST_AGENT_END function=create_user
+
+# AI_TEST_AGENT_START function=process_payment
+def test_process_payment_successful_charge():
+    gateway = MagicMock()
+    gateway.charge.return_value = {"status": "success", "transaction_id": "tx123"}
+    result = process_payment(100.0, gateway)
+    assert result == "tx123"
+    gateway.charge.assert_called_once_with(100.0)
+
+def test_process_payment_zero_amount_raises_value_error():
+    gateway = MagicMock()
+    with pytest.raises(ValueError) as excinfo:
+        process_payment(0, gateway)
+    assert str(excinfo.value) == "Invalid amount"
+    gateway.charge.assert_not_called()
+
+def test_process_payment_negative_amount_raises_value_error():
+    gateway = MagicMock()
+    with pytest.raises(ValueError) as excinfo:
+        process_payment(-50.0, gateway)
+    assert str(excinfo.value) == "Invalid amount"
+    gateway.charge.assert_not_called()
+
+def test_process_payment_failed_charge_raises_runtime_error():
+    gateway = MagicMock()
+    gateway.charge.return_value = {"status": "failed", "transaction_id": "tx999"}
+    with pytest.raises(RuntimeError) as excinfo:
+        process_payment(50.0, gateway)
+    assert str(excinfo.value) == "Payment failed"
+    gateway.charge.assert_called_once_with(50.0)
+
+def test_process_payment_charge_returns_unexpected_status_raises_runtime_error():
+    gateway = MagicMock()
+    gateway.charge.return_value = {"status": "error", "transaction_id": "tx000"}
+    with pytest.raises(RuntimeError) as excinfo:
+        process_payment(10.0, gateway)
+    assert str(excinfo.value) == "Payment failed"
+    gateway.charge.assert_called_once_with(10.0)
+
+def test_process_payment_charge_response_missing_status_key_raises_runtime_error():
+    gateway = MagicMock()
+    gateway.charge.return_value = {"transaction_id": "tx111"}
+    with pytest.raises(RuntimeError) as excinfo:
+        process_payment(20.0, gateway)
+    assert str(excinfo.value) == "Payment failed"
+    gateway.charge.assert_called_once_with(20.0)
+
+def test_process_payment_charge_response_missing_transaction_id_key_raises_key_error():
+    gateway = MagicMock()
+    gateway.charge.return_value = {"status": "success"}
+    with pytest.raises(KeyError):
+        process_payment(30.0, gateway)
+    gateway.charge.assert_called_once_with(30.0)
+# AI_TEST_AGENT_END function=process_payment
+
+# AI_TEST_AGENT_START function=fetch_active_users
+def test_fetch_active_users_returns_only_active_with_email():
+    client = MagicMock()
+    client.get.return_value.json.return_value = [
+        {"is_active": True, "email": "a@example.com"},
+        {"is_active": False, "email": "b@example.com"},
+        {"is_active": True, "email": None},
+        {"is_active": True, "email": "c@example.com"},
+    ]
+    result = fetch_active_users(client)
+    assert result == [
+        {"is_active": True, "email": "a@example.com"},
+        {"is_active": True, "email": "c@example.com"},
+    ]
+    assert client.get.call_count == 1
+
+def test_fetch_active_users_raises_after_retries_on_exception():
+    client = MagicMock()
+    client.get.side_effect = Exception("fail")
+    with pytest.raises(RuntimeError) as excinfo:
+        fetch_active_users(client, retries=1)
+    assert "Failed after retries" in str(excinfo.value)
+    assert client.get.call_count == 2
+
+def test_fetch_active_users_returns_empty_list_when_no_active_users():
+    client = MagicMock()
+    client.get.return_value.json.return_value = [
+        {"is_active": False, "email": "a@example.com"},
+        {"is_active": False, "email": None},
+        {"is_active": True, "email": ""},
+        {"is_active": None, "email": "b@example.com"},
+    ]
+    result = fetch_active_users(client)
+    assert result == []
+    assert client.get.call_count == 1
+# AI_TEST_AGENT_END function=fetch_active_users
